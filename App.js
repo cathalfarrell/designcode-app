@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Card from "./components/Card";
 import { Ionicons } from "@expo/vector-icons";
 import { NotificationIcon } from "./components/Icons";
+import Logo from "./components/Logo";
 
 export default class App extends React.Component {
   render() {
@@ -22,8 +23,25 @@ export default class App extends React.Component {
                 color="#4775f2"
                 style={{ position: "absolute", right: 20, top: 5 }}
               /> */}
-              <NotificationIcon style={{ position: "absolute", right: 20, top: 5 }}/>
+              <NotificationIcon
+                style={{ position: "absolute", right: 20, top: 5 }}
+              />
             </TitleBar>
+            <ScrollView
+              style={{
+                flexDirection: "row",
+                padding: 20,
+                paddingLeft: 12,
+                paddingTop: 30,
+              }}
+              horizontal={true}
+            >
+              <Logo
+                image={require("./assets/logo-framerx.png")}
+                text="Framer X"
+              />
+              <Logo image={require("./assets/logo-figma.png")} text="Figma" />
+            </ScrollView>
             <Subtitle>Continue Learning</Subtitle>
             <ScrollView
               horizontal={true}
@@ -64,7 +82,7 @@ const Subtitle = styled.Text`
   font-weight: 600;
   font-size: 15px;
   margin-left: 20px;
-  margin-top: 50px;
+  margin-top: 20px;
   text-transform: uppercase;
 `;
 
