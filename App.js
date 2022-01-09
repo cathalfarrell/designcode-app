@@ -8,12 +8,23 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  if (action.type == "CLOSE_MENU") {
-    return { action: "closeMenu" };
-  } else if (action.type == "OPEN_MENU") {
-    return { action: "openMenu" };
+  /*
+    if (action.type == "CLOSE_MENU") {
+      return { action: "closeMenu" };
+    } else if (action.type == "OPEN_MENU") {
+      return { action: "openMenu" };
+    }
+    return state;
+  */
+
+  switch (action.type) {
+    case "OPEN_MENU":
+      return { action: "openMenu" };
+    case "CLOSE_MENU":
+      return { action: "closeMenu" };
+    default:
+      return state;
   }
-  return state;
 };
 
 const store = createStore(reducer);
