@@ -32,6 +32,7 @@ function mapDispatchToProps(dispatch) {
 class HomeScreen extends React.Component {
   state = {
     scale: new Animated.Value(1),
+    opacity: new Animated.Value(1),
   };
 
   /*
@@ -43,12 +44,22 @@ class HomeScreen extends React.Component {
 
   toggleMenu = () => {
     if (this.props.action == "openMenu") {
-      Animated.spring(this.state.scale, {
+      Animated.timing(this.state.scale, {
         toValue: 0.9,
+        duration: 300,
+        easing: Easing.in(),
+      }).start();
+      Animated.spring(this.state.opacity, {
+        toValue: 0.5,
       }).start();
     }
     if (this.props.action == "closeMenu") {
-      Animated.spring(this.state.scale, {
+      Animated.timing(this.state.scale, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.in(),
+      }).start();
+      Animated.spring(this.state.opacity, {
         toValue: 1,
       }).start();
     }
@@ -58,7 +69,12 @@ class HomeScreen extends React.Component {
     return (
       <RootView>
         <Menu />
-        <AnimatedContainer style={{ transform: [{ scale: this.state.scale }] }}>
+        <AnimatedContainer
+          style={{
+            transform: [{ scale: this.state.scale }],
+            opacity: this.state.opacity,
+          }}
+        >
           <SafeAreaView>
             <ScrollView style={{ height: "100%" }}>
               <TitleBar>
@@ -157,6 +173,7 @@ const Avatar = styled.Image`
 const Container = styled.View`
   flex: 1;
   background-color: #f0f3f5;
+  border-radius: 10px;
 `;
 
 const AnimatedContainer = Animated.createAnimatedComponent(Container);
