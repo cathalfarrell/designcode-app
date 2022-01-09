@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { Ionicons } from "@expo/vector-icons";
 import { Animated, TouchableOpacity, Dimensions } from "react-native";
 import MenuItem from "./MenuItem";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return { action: state.action };
+}
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -56,7 +61,7 @@ class Menu extends React.Component {
   }
 }
 
-export default Menu;
+export default connect(mapStateToProps)(Menu); /* Connects Menu to Redux */
 
 const Container = styled.View`
   position: absolute;
