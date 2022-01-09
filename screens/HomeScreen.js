@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   ScrollView,
@@ -6,6 +5,7 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
+  StatusBar,
 } from "react-native";
 import styled from "styled-components";
 import Card from "../components/Card";
@@ -42,6 +42,10 @@ class HomeScreen extends React.Component {
     this.toggleMenu();
   }
 
+  componentDidMount() {
+    StatusBar.setBarStyle("dark-content", true);
+  }
+
   toggleMenu = () => {
     if (this.props.action == "openMenu") {
       Animated.timing(this.state.scale, {
@@ -52,6 +56,8 @@ class HomeScreen extends React.Component {
       Animated.spring(this.state.opacity, {
         toValue: 0.5,
       }).start();
+
+      StatusBar.setBarStyle("light-content", true);
     }
     if (this.props.action == "closeMenu") {
       Animated.timing(this.state.scale, {
@@ -62,6 +68,8 @@ class HomeScreen extends React.Component {
       Animated.spring(this.state.opacity, {
         toValue: 1,
       }).start();
+
+      StatusBar.setBarStyle("dark-content", true);
     }
   };
 
