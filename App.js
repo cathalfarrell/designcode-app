@@ -4,7 +4,7 @@ import { Provider, ReactReduxContext } from "react-redux";
 import HomeScreen from "./screens/HomeScreen";
 
 const initialState = {
-  action: "closeMenu",
+  action: "closeMenu"
 };
 
 const reducer = (state = initialState, action) => {
