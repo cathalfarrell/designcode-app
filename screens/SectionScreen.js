@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 class SectionScreen extends React.Component {
+  static navigationOptions = { title: "Section" };
+
   render() {
     return (
       <Container>
