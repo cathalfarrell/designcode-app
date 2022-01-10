@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 import Avatar from "../components/Avatar";
 
 function mapStateToProps(state) {
-  return { action: state.action };
+  return { action: state.action, name: state.name };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -94,7 +94,7 @@ class HomeScreen extends React.Component {
                   <Avatar />
                 </TouchableOpacity>
                 <Title>Welcome back,</Title>
-                <Name>Meng</Name>
+                <Name>{this.props.name}</Name>
                 {/* <Ionicons
                 name="ios-notifications"
                 size={32}

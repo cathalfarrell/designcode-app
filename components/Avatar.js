@@ -1,5 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+
+function mapStateToProps(state) {
+  return {
+    name: state.name,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateName: (name) =>
+      dispatch({
+        type: "UPDATE_NAME",
+        name: name,
+      }),
+  };
+}
 
 class Avatar extends React.Component {
   state = {
@@ -8,7 +25,7 @@ class Avatar extends React.Component {
   };
 
   componentDidMount() {
-    fetch("https://uifaces.co/api?limit=1&random", {
+    fetch("https://uifaces.co/api?limit=1&random&gender[]=male", {
       headers: new Headers({
         "X-API-KEY": "dbfa0e3e2ec8eaa41fbc4d65d0a7c9",
       }),
@@ -19,6 +36,7 @@ class Avatar extends React.Component {
         this.setState({
           photo: response[0].photo,
         });
+        this.props.updateName(response[0].name);
       });
   }
 
@@ -27,7 +45,7 @@ class Avatar extends React.Component {
   }
 }
 
-export default Avatar;
+export default connect(mapStateToProps, mapDispatchToProps)(Avatar);
 
 const Image = styled.Image`
   width: 44px;
