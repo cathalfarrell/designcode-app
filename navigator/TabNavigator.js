@@ -3,6 +3,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import SectionScreen from "../screens/SectionScreen";
+import CoursesScreen from "../screens/CoursesScreen";
+import ProjectsScreen from "../screens/ProjectsScreen";
 import { Ionicons } from "@expo/vector-icons";
 
 const activeColor = "#4775f2";
@@ -40,7 +42,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 };
 
 const CoursesStack = createStackNavigator({
-  Courses: SectionScreen,
+  Courses: CoursesScreen,
 });
 
 CoursesStack.navigationOptions = {
@@ -55,7 +57,7 @@ CoursesStack.navigationOptions = {
 };
 
 const ProjectsStack = createStackNavigator({
-  Projects: SectionScreen,
+  Projects: ProjectsScreen,
 });
 
 ProjectsStack.navigationOptions = {
