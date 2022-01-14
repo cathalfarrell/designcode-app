@@ -4,6 +4,8 @@ import { TouchableOpacity, StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { WebView } from "react-native-webview";
 import { Linking } from "react-native";
+import Markdown from "react-native-showdown";
+import { ScrollView } from "react-native-gesture-handler";
 
 class SectionScreen extends React.Component {
   static navigationOptions = { header: null };
@@ -21,52 +23,68 @@ class SectionScreen extends React.Component {
     const section = navigation.getParam("section");
 
     return (
-      <Container>
-        <StatusBar hidden />
-        <Cover>
-          <Image source={section.image} />
-          <Wrapper>
-            <Logo source={section.logo} />
-            <Subtitle>{section.subtitle}</Subtitle>
-          </Wrapper>
-          <Title>{section.title}</Title>
-          <Caption>{section.caption}</Caption>
-        </Cover>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}
-          style={{
-            position: "absolute",
-            top: 20,
-            right: 20,
-          }}
-        >
-          <CloseView>
-            <Ionicons
-              name="ios-close"
-              size={30}
-              color="#4775f2"
-              syle={{ marginTop: -2 }}
-            />
-          </CloseView>
-        </TouchableOpacity>
-        <Content>
-          <WebView
-            source={{ html: section.content + htmlStyles }}
-            scalesPageToFit={false}
-            scrollEnabled={false}
-            ref="webview"
-            onNavigationStateChange={(event) => {
-              console.log(event);
-              if (event.url != "about:blank") {
-                this.refs.webview.stopLoading();
-                Linking.openURL(event.url);
-              }
+      <ScrollView style={{ backgroundColor: "black" }}>
+        <Container>
+          <StatusBar hidden />
+          <Cover>
+            <Image source={section.image} />
+            <Wrapper>
+              <Logo source={section.logo} />
+              <Subtitle>{section.subtitle}</Subtitle>
+            </Wrapper>
+            <Title>{section.title}</Title>
+            <Caption>{section.caption}</Caption>
+          </Cover>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.goBack();
             }}
-          />
-        </Content>
-      </Container>
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 20,
+            }}
+          >
+            <CloseView>
+              <Ionicons
+                name="ios-close"
+                size={30}
+                color="#4775f2"
+                syle={{ marginTop: -2 }}
+              />
+            </CloseView>
+          </TouchableOpacity>
+          <Content>
+            {/* <WebView
+              source={{ html: htmlContent + htmlStyles }}
+              scalesPageToFit={false}
+              scrollEnabled={false}
+              ref="webview"
+              onNavigationStateChange={(event) => {
+                console.log(event);
+                if (event.url != "about:blank") {
+                  this.ref.webview.stopLoading();
+                  Linking.openURL(event.url);
+                }
+              }}
+            /> */}
+            <Markdown
+              body={section.content}
+              pureCSS={htmlStyles}
+              scalesPageToFit={false}
+              scrollEnabled={false}
+              ref="webview"
+              onNavigationStateChange={(event) => {
+                console.log(event);
+                if (event.url != "about:blank") {
+                  //this.ref.webview.stopLoading(); //<-- not working
+                  Linking.openURL(event.url);
+                }
+              }}
+            />
+          </Content>
+        </Container>
+      </ScrollView>
     );
   }
 }
@@ -80,19 +98,18 @@ const htmlContent = `
 `;
 
 const htmlStyles = `
-<style>
 * {
   font-family: -apple-system, Roboto;
   margin: 0;
   padding: 0;
-  // font-size: 24px; 
+  font-size: 17px; 
   font-weight: normal; 
   color: #3c4560;
   line-height: 24px;
 }
 
 h2 {
-  // font-size: 20px;
+  font-size: 20px;
   text-transform: uppercase;
   color: #b8bece;
   font-weight: 600;
@@ -118,12 +135,25 @@ img {
   margin-top: 20px;
   border-radius: 10px;
 }
-</style>
+
+pre {
+  padding: 20px;
+  background: #212C4F;
+  overflow: hidden;
+  word-wrap: break-word;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+code {
+  color: white;
+}
 `;
 
 const Content = styled.View`
-  height: 100%;
+  height: 1000px;
   padding: 20px;
+  background-color: white;
 `;
 
 const Container = styled.View`
