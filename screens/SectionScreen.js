@@ -55,22 +55,22 @@ class SectionScreen extends React.Component {
             </CloseView>
           </TouchableOpacity>
           <Content>
-            {/* <WebView
-              source={{ html: htmlContent + htmlStyles }}
+            <WebView
+              source={{ html: section.content + htmlStyles }}
               scalesPageToFit={false}
               scrollEnabled={false}
               ref="webview"
               onNavigationStateChange={(event) => {
                 console.log(event);
                 if (event.url != "about:blank") {
-                  this.ref.webview.stopLoading();
+                  this.refs.webview.stopLoading();
                   Linking.openURL(event.url);
                 }
               }}
-            /> */}
-            <Markdown
+            />
+            {/* <Markdown
               body={section.content}
-              pureCSS={htmlStyles}
+              pureCSS={markdownStyles}
               scalesPageToFit={false}
               scrollEnabled={false}
               ref="webview"
@@ -81,7 +81,7 @@ class SectionScreen extends React.Component {
                   Linking.openURL(event.url);
                 }
               }}
-            />
+            /> */}
           </Content>
         </Container>
       </ScrollView>
@@ -98,6 +98,52 @@ const htmlContent = `
 `;
 
 const htmlStyles = `
+<style>
+* {
+  font-family: -apple-system, Roboto;
+  margin: 0;
+  padding: 0;
+  font-size: 50px; 
+  font-weight: normal; 
+  color: #3c4560;
+  line-height: 70px;
+}
+
+h2 {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #b8bece;
+  font-weight: 600;
+  margin-top: 50px;
+}
+
+p {
+  margin-top: 20px;
+}
+
+a {
+  color: #4775f2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+b {
+  font-weight: 700;
+}
+
+strong {
+  font-weight: 700;
+}
+
+img {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+</style>
+`;
+
+const markdownStyles = `
 * {
   font-family: -apple-system, Roboto;
   margin: 0;
